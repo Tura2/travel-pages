@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    .checkbox {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .checkbox input {
+      margin-right: 10px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .success {
+      color: green;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>We'd love your feedback</h1>
+
+  <form id="feedbackForm">
+    <label for="country">Preferred Country</label>
+    <input type="text" id="country" name="country" required>
+
+    <label for="feedback">Your Feedback</label>
+    <textarea id="feedback" name="feedback" rows="5" required></textarea>
+
+    <div class="checkbox">
+      <input type="checkbox" id="stopProcess" name="stopProcess">
+      <label for="stopProcess">🛑 Stop the process</label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="success" id="successMessage" style="display: none;">
+    ✅ Thank you! Your feedback has been submitted.
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const recordId = urlParams.get("recordId");
+
+    const form = document.getElementById("feedbackForm");
+    const successMsg = document.getElementById("successMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const country = document.getElementById("country").value;
+      const feedbackInput = document.getElementById("feedback").value;
+      const stopChecked = document.getElementById("stopProcess").checked;
+
+      const feedback = stopChecked ? "stop the process" : feedbackInput;
+
+      const payload = {
+        recordId,
+        newCountry: country,
+        feedback: feedback
+      };
+
+      console.log("Sending payload:", payload); // for dev
+
+      // -- webhook will be added later --
+      form.style.display = "none";
+      successMsg.style.display = "block";
+    });
+  </script>
+</body>
+</html>
