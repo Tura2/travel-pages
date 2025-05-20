@@ -68,11 +68,14 @@
     .checkbox {
       display: flex;
       align-items: center;
+      gap: 8px;
       margin-top: 20px;
     }
 
-    .checkbox input {
-      margin-right: 10px;
+    .checkbox label {
+      margin: 0;
+      font-weight: normal;
+      cursor: pointer;
     }
 
     button {
@@ -114,7 +117,7 @@
 
       <div class="checkbox">
         <input type="checkbox" id="stopProcess" />
-        <label for="stopProcess">🛑 Stop the process</label>
+        <label for="stopProcess">🛑 Cancel my request</label>
       </div>
 
       <button type="submit">Submit</button>
