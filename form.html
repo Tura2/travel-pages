@@ -3,85 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <title>Submit Feedback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --main-color: #dc3545;
+      --bg: #ffffff;
+      --text: #333;
+      --border-radius: 8px;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      max-width: 600px;
-      margin: auto;
-      background-color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
     }
+
+    .form-container {
+      background-color: var(--bg);
+      padding: 40px 30px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
     h1 {
-      color: #333;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+      color: var(--text);
     }
+
     label {
       display: block;
       margin-top: 20px;
       font-weight: bold;
+      color: var(--text);
     }
+
     input, textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
+      padding: 12px;
+      margin-top: 8px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      box-sizing: border-box;
+      transition: border 0.2s;
     }
+
+    input:focus, textarea:focus {
+      border-color: var(--main-color);
+      outline: none;
+    }
+
     .checkbox {
       margin-top: 20px;
       display: flex;
       align-items: center;
     }
+
     .checkbox input {
       margin-right: 10px;
     }
+
     button {
+      width: 100%;
       margin-top: 30px;
-      padding: 12px 20px;
+      padding: 14px;
       font-size: 16px;
-      background-color: #dc3545;
+      font-weight: bold;
+      background-color: var(--main-color);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
       cursor: pointer;
+      transition: background-color 0.3s;
     }
+
+    button:hover {
+      background-color: #c82333;
+    }
+
     .success {
+      text-align: center;
       color: green;
+      font-weight: bold;
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>We'd love your feedback</h1>
+  <div class="form-container">
+    <h1>We'd love your feedback</h1>
 
-  <form id="feedbackForm">
-    <label for="country">Preferred Country</label>
-    <input type="text" id="country" name="country" required>
+    <form id="feedbackForm">
+      <label for="country">Preferred Country</label>
+      <input type="text" id="country" name="country" required>
 
-    <label for="feedback">Your Feedback</label>
-    <textarea id="feedback" name="feedback" rows="5" required></textarea>
+      <label for="feedback">Your Feedback</label>
+      <textarea id="feedback" name="feedback" rows="5" required></textarea>
 
-    <div class="checkbox">
-      <input type="checkbox" id="stopProcess" name="stopProcess">
-      <label for="stopProcess">🛑 Stop the process</label>
+      <div class="checkbox">
+        <input type="checkbox" id="stopProcess" name="stopProcess">
+        <label for="stopProcess">🛑 Stop the process</label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="success" id="successMessage" style="display: none;">
+      ✅ Thank you! Your feedback has been submitted.
     </div>
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <div class="success" id="successMessage" style="display: none;">
-    ✅ Thank you! Your feedback has been submitted.
   </div>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const recordId = urlParams.get("recordId");
+    const prefillCountry = urlParams.get("country");
 
     const form = document.getElementById("feedbackForm");
     const successMsg = document.getElementById("successMessage");
+    const countryInput = document.getElementById("country");
+
+    if (prefillCountry) {
+      countryInput.value = decodeURIComponent(prefillCountry);
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const country = document.getElementById("country").value;
+      const country = countryInput.value;
       const feedbackInput = document.getElementById("feedback").value;
       const stopChecked = document.getElementById("stopProcess").checked;
 
