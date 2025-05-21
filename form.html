@@ -71,19 +71,23 @@
     .checkbox {
       display: flex;
       align-items: center;
-      gap: 10px;
       margin-top: 24px;
       font-size: 15px;
     }
 
-    .checkbox input {
-      width: 18px;
-      height: 18px;
+    .checkbox label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: normal;
+      user-select: none;
     }
 
-    .checkbox label {
-      margin: 0;
-      font-weight: normal;
+    .checkbox input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #dc3545;
       cursor: pointer;
     }
 
@@ -98,12 +102,13 @@
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.1s ease;
+      transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     }
 
     button:hover {
       background-color: #e03638;
       transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
     }
 
     .success {
@@ -141,8 +146,10 @@
       <textarea id="feedback" name="feedback" rows="5" required></textarea>
 
       <div class="checkbox">
-        <input type="checkbox" id="stopProcess" />
-        <label for="stopProcess">🛑 Cancel my request</label>
+        <label for="stopProcess">
+          <input type="checkbox" id="stopProcess" />
+          🛑 Cancel my request
+        </label>
       </div>
 
       <button type="submit">Submit Feedback</button>
