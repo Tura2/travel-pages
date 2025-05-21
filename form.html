@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Feedback Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -13,8 +13,8 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      font-family: 'Heebo', sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #ffffff);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -22,11 +22,11 @@
     }
 
     .form-container {
-      background-color: #fff;
-      padding: 40px;
+      background-color: #ffffff;
+      padding: 40px 32px;
       width: 100%;
-      max-width: 500px;
-      border-radius: 16px;
+      max-width: 520px;
+      border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       animation: fadeIn 0.4s ease;
     }
@@ -37,9 +37,9 @@
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       color: #222;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       text-align: center;
     }
 
@@ -48,28 +48,37 @@
       margin-top: 20px;
       display: block;
       color: #333;
+      font-size: 15px;
     }
 
     input, textarea {
       margin-top: 8px;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid #ccc;
-      transition: border-color 0.3s;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s, background-color 0.3s;
     }
 
     input:focus, textarea:focus {
       border-color: #007bff;
+      background-color: #fff;
       outline: none;
     }
 
     .checkbox {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 24px;
+      font-size: 15px;
+    }
+
+    .checkbox input {
+      width: 18px;
+      height: 18px;
     }
 
     .checkbox label {
@@ -79,29 +88,45 @@
     }
 
     button {
-      margin-top: 30px;
+      margin-top: 32px;
       width: 100%;
-      padding: 14px;
-      background-color: #dc3545;
+      padding: 16px;
+      background-color: #ff4d4f;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       color: white;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 17px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, transform 0.1s ease;
     }
 
     button:hover {
-      background-color: #c82333;
+      background-color: #e03638;
+      transform: translateY(-2px);
     }
 
     .success {
-      margin-top: 20px;
+      margin-top: 24px;
       text-align: center;
-      font-weight: bold;
+      font-weight: 600;
       color: #28a745;
       display: none;
+      font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -120,7 +145,7 @@
         <label for="stopProcess">🛑 Cancel my request</label>
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit">Submit Feedback</button>
     </form>
     <div class="success" id="successMessage">✅ Thank you! Your feedback has been submitted.</div>
   </div>
@@ -132,8 +157,8 @@
 
     const form = document.getElementById("feedbackForm");
     const successMsg = document.getElementById("successMessage");
-
     const countryInput = document.getElementById("country");
+
     if (prefillCountry) {
       countryInput.value = decodeURIComponent(prefillCountry);
     }
